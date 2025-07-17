@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoja de vida en PHP</title>
+    <link rel="stylesheet" href="/Styles-index.css">
+</head>
+<body>
+    <!-- Contenedor (cuadro) principal -->
+    <div class="contenedorGeneral">
+        <header>
+            <img src="/images/Captura.PNG" class="imgEscudo" name="Escudo-Colombia">
+            <div class="tituloHeader">
+                <P class="par H1">FORMATO UNICO</P>
+                <h1>HOJA DE VIDA</h1>
+                <P class="par H2">Persona Natural</P>
+                <p class="par H3">(Leyes 190 de 1995, 489 y 443 de 1998)</p>
+            </div>
+            <div class="inputHeader">
+                <p>ENTIDAD RECEPTORA</p>
+                <input type="text" name="entidadrep" id="entidad-receptora">
+            </div>
+        </header>
+        <!-- Primera seccion -->
+        <div class="indices ind1">
+            <button class="indice d1">1</button>
+            <button class="indice d2">DATOS PERSONALES</button>
+        </div>
+        <div class="formulario-contenedor1">
+            <form class="formulario f1">
+                <div class="seccion-nombres">
+                    <div class="campo">
+                        <input type="text" id="primer-apellido" name="primer_apellido" placeholder="PRIMER APELLIDO">
+                    </div>
+                    <div class="campo">
+                        <input type="text" id="segundo-apellido" name="segundo-apellido" placeholder="SEGUNDO APELLIDO (O DE CASADO/A)">
+                    </div>
+                    <div class="campo">
+                        <input type="text" id="nombres" name="nombres" placeholder="NOMBRES">
+                    </div>
+                </div>
+                <div class="seccion-documento-sexo-nacionalidad">
+                    <div class="campo2 documento">
+                        <label>DOCUMENTO DE IDENTIFICACIÓN</label>
+                        <div class="opciones-radio">
+                            <label for="cc">C.C</label>
+                            <input type="radio" id="cc" name="tipo-documento" value="CC">
+                            <label for="ce">C.E</label>
+                            <input type="radio" id="ce" name="tipo-documento" value="CE">
+                            <label for="pas">PAS</label>
+                            <input type="radio" id="pas" name="tipo-documento" value="PAS">
+                            <label for="no">No.</label>
+                            <input type="text" id="numero-documento" name="numero-documento" class="input-documento">
+                        </div>
+                    </div>
+                    <div class="campo2 sexo">
+                        <label>SEXO</label>
+                        <div class="opciones-radio">
+                            <label for="F">F</label>
+                            <input type="radio" id="F" name="tipo-sexo" value="F">
+                            <label for="M">M</label>
+                            <input type="radio" id="M" name="tipo-sexo" value="M">
+                        </div>
+                    </div>
+                    <div class="campo2 nacionalidad">
+                        <label>NACIONALIDAD</label>
+                            <div class="opciones-radio">
+                                <label for="F">COL</label>
+                                <input type="radio" name="nacionalidad" id="COL" value="COL">
+                                <label for="M">EXTRANJERO</label>
+                                <input type="radio" name="nacionalidad" id="extranjero" value="extranjero">
+                                <label for="pais">PAIS</label>
+                                <input type="text" id="pais" name="pais" class="input-pais">
+                            </div>
+                    </div>
+            </div>
+                <div class="seccion-libreta-militar">
+                    <div class="campo-libreta">
+                        <label>LIBRETA MILITAR</label>
+                            <div class="opciones-libreta">
+                                <label for="primera-clase">PRIMERA CLASE</label>
+                                <input type="radio" id="primera-clase" name="tipo_libreta" value="Primera_Clase">
+                                <label for="segunda-clase">SEGUNDA CLASE</label>
+                                <input type="radio" id="segunda-clase" name="tipo_libreta" value="Segunda_Clase">
+                                <label for="numero">NUMERO</label>
+                                <input type="text" id="numero-libreta" name="numero_libreta" class="input-numero-libreta">
+                                <label for="numero">D. MILITAR</label>
+                                <input type="text" id="dm" name="dm" class="input-dm">
+                            </div>
+                    </div>
+                </div>
+                <!-- seccion fecha de nacimiento y direccion -->
+                <div class="seccion-fnacimiento-direccion">
+                    <div class="campo-f-nacimiento">
+                        <label>FECHA Y LUGAR DE NACIMIENTO</label>
+                        <div>
+                            <label for="DIA">FECHA</label>
+                            <input type="date" name="DIA" id="dia" class="input-dia">
+                            <label for="pais">PAIS</label>
+                            <input type="text" class="input-pais2" id="input_pais2">
+                            <label for="DEPTO">DEPTO</label>
+                            <input type="text" class="input-depto1" id="input_depto_1">
+                            <label for="municipio">MUNICIPIO</label>
+                            <input type="text" name="municipio" id="input_municipio" class="input-municipio">
+                        </div>
+                    </div>
+                    <div class="campo-direccion">
+                        <label>DIRECCION DE CORRESPONDENCIA</label>
+                        <div>
+                            <input type="text" name="direccion" id="direccion_input" class="direccion-input">
+                            <div class="inputs-direccion">
+                                <label for="pais">PAIS</label>
+                                <input type="text" class="input-pais3" id="input_pais3">
+                                <label for="DEPTO">DEPTO</label>
+                                <input type="text" class="depto-2" id="depto_2">
+                                <label for="municipio">MUNICIPIO</label>
+                                <input type="text" name="municipio" id="input_municipio2" class="input-municipio2">
+                                <label for="telefono">TELEFONO</label>
+                                <input type="text" name="telefono" id="input_telefono" class="input-telefono">
+                                <label for="email">EMAIL</label>
+                                <input type="email" name="email" id="eamil_input" class="email-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+         <!-- Primera seccion -->
+        <div class="indices ind1">
+            <button class="indice d1">2</button>
+            <button class="indice d2">FORMACION ACADEMICA</button>
+        </div>
+        <form class="formulario f2">
+            <div>
+                <div>
+                <p>EDUCACIÓN BÁSICA Y MEDIA</p>
+                <p>MARQUE CON UNA X EL ÚLTIMO GRADO APROBADO ( LOS GRADOS DE 1o. A 6o. 
+                    DE BACHILLERATO EQUIVALEN A LOS GRADOS 6o. A 11o. DE
+                    EDUCACIÓN BÁSICA SECUNDARIA Y MEDIA )</p>
+                </div>
+                <div>
+                    <div>
+                        <p>EDUCACIÓN BÁSICA</p>
+
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+        </form>
+        </div>
+    </div>
+    
+</body>
+</html>
