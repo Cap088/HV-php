@@ -14,7 +14,7 @@ body input{
 
 /* Estilos del contenedor (cuadro) principal **/
 .contenedorGeneral-pagina2{
-    width: auto;
+    width: 70%;
     height: auto;
     padding: 40px;
     display: flex;
@@ -27,7 +27,7 @@ body input{
 }
 
 /* Estilos del header */
-header{
+.header{
     width: auto;
     height: auto;
     margin: 0px;
@@ -43,14 +43,14 @@ header{
 .imgEscudo{
     width: auto;
     height: auto;
-    margin: 0px 0px 0px 50px;
+    margin: 0;
 }
 
 .tituloHeader{
-    width: 50%;
+    width: 60%;
     height: auto;
-    margin: 0px 0px 0px 10px;
-    padding: 0;
+    margin: 0px 50px 20px 10px;
+    padding-right: 30px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -68,25 +68,6 @@ header{
     font-size: 10px;
 }
 
-.inputHeader{
-width:22%;
-height: auto;
-padding: 0px 0px 50px 20px;
-align-content: end;
-box-sizing: border-box;
-}
-
-.inputHeader p{
-    font-size: 10px;
-    font-weight: bold;
-    font-style: italic;
-}
-
-.inputHeader input{
-    width: 80%;
-    height: 23px;
-    border: 2px solid;
-}
 
 /* Estilos de los Indices */
 
