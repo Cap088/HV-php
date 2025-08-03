@@ -1,111 +1,75 @@
 <?php
+// ¡IMPORTANTE! Iniciar la sesión para poder acceder a $_SESSION
 session_start();
-include 'conexion.php';
 
-/* Verifica si se envio el formulario */
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Desactivar temporalmente la visualización de errores para el usuario final
+ini_set('display_errors', 0);
 
-    $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : null;
+// Configuración de la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "hoja_de_vida_db";
 
-    $entidad_receptora = $conn->real_escape_string($_POST['entidad_receptora'] ?? '');
+// 1. Conexión a la base de datos
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Empleo Actual
-    $actual_empresa = $conn->real_escape_string($_POST['actual_empresa'] ?? '');
-    $actual_tipo_empresa = $conn->real_escape_string($_POST['actual_tipo_empresa'] ?? '');
-    $actual_pais = $conn->real_escape_string($_POST['actual_pais'] ?? '');
-    $actual_departamento = $conn->real_escape_string($_POST['actual_departamento'] ?? '');
-    $actual_municipio = $conn->real_escape_string($_POST['actual_municipio'] ?? '');
-    $actual_correo_entidad = $conn->real_escape_string($_POST['actual_correo_entidad'] ?? '');
-    $actual_telefonos = $conn->real_escape_string($_POST['actual_telefonos'] ?? '');
-    $actual_fecha_ingreso = $conn->real_escape_string($_POST['actual_fecha_ingreso'] ?? '');
-    $actual_fecha_retiro = $conn->real_escape_string($_POST['actual_fecha_retiro'] ?? '');
-    $actual_cargo = $conn->real_escape_string($_POST['actual_cargo'] ?? '');
-    $actual_dependencia = $conn->real_escape_string($_POST['actual_dependencia'] ?? '');
-    $actual_direccion = $conn->real_escape_string($_POST['actual_direccion'] ?? '');
-
-    // Empleo Anterior 1
-    $anterior_1_empresa = $conn->real_escape_string($_POST['anterior_1_empresa'] ?? '');
-    $anterior_1_tipo_empresa = $conn->real_escape_string($_POST['anterior_1_tipo_empresa'] ?? '');
-    $anterior_1_pais = $conn->real_escape_string($_POST['anterior_1_pais'] ?? '');
-    $anterior_1_departamento = $conn->real_escape_string($_POST['anterior_1_departamento'] ?? '');
-    $anterior_1_municipio = $conn->real_escape_string($_POST['anterior_1_municipio'] ?? '');
-    $anterior_1_correo_entidad = $conn->real_escape_string($_POST['anterior_1_correo_entidad'] ?? '');
-    $anterior_1_telefonos = $conn->real_escape_string($_POST['anterior_1_telefonos'] ?? '');
-    $anterior_1_fecha_ingreso = $conn->real_escape_string($_POST['anterior_1_fecha_ingreso'] ?? '');
-    $anterior_1_fecha_retiro = $conn->real_escape_string($_POST['anterior_1_fecha_retiro'] ?? '');
-    $anterior_1_cargo = $conn->real_escape_string($_POST['anterior_1_cargo'] ?? '');
-    $anterior_1_dependencia = $conn->real_escape_string($_POST['anterior_1_dependencia'] ?? '');
-    $anterior_1_direccion = $conn->real_escape_string($_POST['anterior_1_direccion'] ?? '');
-
-    // Empleo Anterior 2
-    $anterior_2_empresa = $conn->real_escape_string($_POST['anterior_2_empresa'] ?? '');
-    $anterior_2_tipo_empresa = $conn->real_escape_string($_POST['anterior_2_tipo_empresa'] ?? '');
-    $anterior_2_pais = $conn->real_escape_string($_POST['anterior_2_pais'] ?? '');
-    $anterior_2_departamento = $conn->real_escape_string($_POST['anterior_2_departamento'] ?? '');
-    $anterior_2_municipio = $conn->real_escape_string($_POST['anterior_2_municipio'] ?? '');
-    $anterior_2_correo_entidad = $conn->real_escape_string($_POST['anterior_2_correo_entidad'] ?? '');
-    $anterior_2_telefonos = $conn->real_escape_string($_POST['anterior_2_telefonos'] ?? '');
-    $anterior_2_fecha_ingreso = $conn->real_escape_string($_POST['anterior_2_fecha_ingreso'] ?? '');
-    $anterior_2_fecha_retiro = $conn->real_escape_string($_POST['anterior_2_fecha_retiro'] ?? '');
-    $anterior_2_cargo = $conn->real_escape_string($_POST['anterior_2_cargo'] ?? '');
-    $anterior_2_dependencia = $conn->real_escape_string($_POST['anterior_2_dependencia'] ?? '');
-    $anterior_2_direccion = $conn->real_escape_string($_POST['anterior_2_direccion'] ?? '');
-
-    // Empleo Anterior 3
-    $anterior_3_empresa = $conn->real_escape_string($_POST['anterior_3_empresa'] ?? '');
-    $anterior_3_tipo_empresa = $conn->real_escape_string($_POST['anterior_3_tipo_empresa'] ?? '');
-    $anterior_3_pais = $conn->real_escape_string($_POST['anterior_3_pais'] ?? '');
-    $anterior_3_departamento = $conn->real_escape_string($_POST['anterior_3_departamento'] ?? '');
-    $anterior_3_municipio = $conn->real_escape_string($_POST['anterior_3_municipio'] ?? '');
-    $anterior_3_correo_entidad = $conn->real_escape_string($_POST['anterior_3_correo_entidad'] ?? '');
-    $anterior_3_telefonos = $conn->real_escape_string($_POST['anterior_3_telefonos'] ?? '');
-    $anterior_3_fecha_ingreso = $conn->real_escape_string($_POST['anterior_3_fecha_ingreso'] ?? '');
-    $anterior_3_fecha_retiro = $conn->real_escape_string($_POST['anterior_3_fecha_retiro'] ?? '');
-    $anterior_3_cargo = $conn->real_escape_string($_POST['anterior_3_cargo'] ?? '');
-    $anterior_3_dependencia = $conn->real_escape_string($_POST['anterior_3_dependencia'] ?? '');
-    $anterior_3_direccion = $conn->real_escape_string($_POST['anterior_3_direccion'] ?? '');
-
-    /* Consulta SQL para insertar los datos */
-    $sql = "INSERT INTO experiencia_laboral (
-                id_usuario, entidad_receptora,
-                actual_empresa, actual_tipo_empresa, actual_pais, actual_departamento, actual_municipio, actual_correo_entidad, actual_telefonos, actual_fecha_ingreso, actual_fecha_retiro, actual_cargo, actual_dependencia, actual_direccion,
-                anterior_1_empresa, anterior_1_tipo_empresa, anterior_1_pais, anterior_1_departamento, anterior_1_municipio, anterior_1_correo_entidad, anterior_1_telefonos, anterior_1_fecha_ingreso, anterior_1_fecha_retiro, anterior_1_cargo, anterior_1_dependencia, anterior_1_direccion,
-                anterior_2_empresa, anterior_2_tipo_empresa, anterior_2_pais, anterior_2_departamento, anterior_2_municipio, anterior_2_correo_entidad, anterior_2_telefonos, anterior_2_fecha_ingreso, anterior_2_fecha_retiro, anterior_2_cargo, anterior_2_dependencia, anterior_2_direccion,
-                anterior_3_empresa, anterior_3_tipo_empresa, anterior_3_pais, anterior_3_departamento, anterior_3_municipio, anterior_3_correo_entidad, anterior_3_telefonos, anterior_3_fecha_ingreso, anterior_3_fecha_retiro, anterior_3_cargo, anterior_3_dependencia, anterior_3_direccion
-            ) VALUES (
-                ?, ?,
-                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-            )";
-
-    /* Preparar la declaración */
-    $stmt = $conn->prepare($sql);
-
-    /* Vincular parámetros
-    Ajusta la cadena de tipos 's' segun el número de campos y si son strings, enteros, etc.
-    's' para string, 'i' para integer, 'd' para double, 'b' para blob */
-    $stmt->bind_param("issssssssssssssssssssssssssssssssssssssssssssss",
-        $id_usuario, $entidad_receptora,
-        $actual_empresa, $actual_tipo_empresa, $actual_pais, $actual_departamento, $actual_municipio, $actual_correo_entidad, $actual_telefonos, $actual_fecha_ingreso, $actual_fecha_retiro, $actual_cargo, $actual_dependencia, $actual_direccion,
-        $anterior_1_empresa, $anterior_1_tipo_empresa, $anterior_1_pais, $anterior_1_departamento, $anterior_1_municipio, $anterior_1_correo_entidad, $anterior_1_telefonos, $anterior_1_fecha_ingreso, $anterior_1_fecha_retiro, $anterior_1_cargo, $anterior_1_dependencia, $anterior_1_direccion,
-        $anterior_2_empresa, $anterior_2_tipo_empresa, $anterior_2_pais, $anterior_2_departamento, $anterior_2_municipio, $anterior_2_correo_entidad, $anterior_2_telefonos, $anterior_2_fecha_ingreso, $anterior_2_fecha_retiro, $anterior_2_cargo, $anterior_2_dependencia, $anterior_2_direccion,
-        $anterior_3_empresa, $anterior_3_tipo_empresa, $anterior_3_pais, $anterior_3_departamento, $anterior_3_municipio, $anterior_3_correo_entidad, $anterior_3_telefonos, $anterior_3_fecha_ingreso, $anterior_3_fecha_retiro, $anterior_3_cargo, $anterior_3_dependencia, $anterior_3_direccion
-    );
-
-    if ($stmt->execute()) {
-
-        header("Location: pagina3.php");
-        exit();
-    } else {
-        echo "Error: " . $stmt->error;
-    }
-
-    $stmt->close();
-} else {
-    echo "Acceso no válido al script de procesamiento.";
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
 }
 
+// 2. Obtener el ID de la persona desde la SESIÓN
+// Ya no se busca en $_POST, sino en $_SESSION
+$id_persona = isset($_SESSION['id_persona']) ? intval($_SESSION['id_persona']) : 0;
+if ($id_persona === 0) {
+    // Si la sesión no tiene el ID, el usuario no ha pasado por la página 1.
+    // Redirigimos al inicio.
+    header("Location: index.php");
+    exit();
+}
+
+// 3. Preparar la consulta SQL para insertar los datos
+$sql = "INSERT INTO experiencia_laboral (id_persona, tipo, empresa, tipo_empresa, pais, departamento, municipio, correo_entidad, telefonos, fecha_ingreso, fecha_retiro, cargo, dependencia, direccion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
+
+if ($stmt === false) {
+    die("Error al preparar la consulta: " . $conn->error);
+}
+
+// 4. Procesar los tres bloques de experiencia laboral
+for ($i = 0; $i <= 2; $i++) {
+    $prefix = ($i === 0) ? "actual_" : "anterior_" . $i . "_";
+    $tipo = ($i === 0) ? "actual" : "anterior";
+
+    $empresa = $_POST[$prefix . 'empresa'] ?? '';
+    $tipo_empresa = $_POST[$prefix . 'tipo_empresa'] ?? '';
+    $pais = $_POST[$prefix . 'pais'] ?? '';
+    $departamento = $_POST[$prefix . 'departamento'] ?? '';
+    $municipio = $_POST[$prefix . 'municipio'] ?? '';
+    $correo_entidad = $_POST[$prefix . 'correo_entidad'] ?? '';
+    $telefonos = $_POST[$prefix . 'telefonos'] ?? '';
+    $fecha_ingreso = $_POST[$prefix . 'fecha_ingreso'] ?? '';
+    $fecha_retiro = $_POST[$prefix . 'fecha_retiro'] ?? '';
+    $cargo = $_POST[$prefix . 'cargo'] ?? '';
+    $dependencia = $_POST[$prefix . 'dependencia'] ?? '';
+    $direccion = $_POST[$prefix . 'direccion'] ?? '';
+
+    if (!empty($empresa)) {
+        $stmt->bind_param("isssssssssssss", $id_persona, $tipo, $empresa, $tipo_empresa, $pais, $departamento, $municipio, $correo_entidad, $telefonos, $fecha_ingreso, $fecha_retiro, $cargo, $dependencia, $direccion);
+
+        if (!$stmt->execute()) {
+            echo "Error al guardar el empleo " . ($i + 1) . ": " . $stmt->error . "<br>";
+        }
+    }
+}
+
+// 5. Cerrar la conexión
+$stmt->close();
 $conn->close();
+
+// 6. Redirigir a la siguiente página
+header("Location: pagina3.php?id_persona=" . $id_persona);
+exit();
+
 ?>

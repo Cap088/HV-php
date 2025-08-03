@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoja de Vida Completada</title>
-    <link rel="stylesheet" href="/Styles-confirmacion.css"> </head>
+    <link rel="stylesheet" href="Styles-confirmacion_final.css">
+</head>
 <body>
     <div class="contenedor-confirmacion">
         <h2>¡Hoja de Vida Enviada con Éxito!</h2>

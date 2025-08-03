@@ -8,13 +8,14 @@
 </head>
 <body>
     <div class="contenedorGeneral-pagina1">
-        <form action="pagina2.php" method="post" class="Formulario-pagina1" enctype="multipart/form-data">
+        <form action="process_hoja_de_vida_pagina1.php" method="POST" enctype="multipart/form-data">
             <div class="header">
-                <img src="./images/Captura.PNG" class="imgEscudo" name="escudo_colombia" alt="Escudo de Colombia">
+                <!-- He cambiado la imagen por una de placeholder para que el ejemplo funcione -->
+                <img src="https://placehold.co/100x100/A0B2C4/FFFFFF?text=Escudo" class="imgEscudo" name="escudo_colombia" alt="Escudo de Colombia">
                 <div class="tituloHeader">
-                    <P class="par H1">FORMATO ÚNICO</P>
+                    <p class="par H1">FORMATO ÚNICO</p>
                     <h1>HOJA DE VIDA</h1>
-                    <P class="par H2">Persona Natural</P>
+                    <p class="par H2">Persona Natural</p>
                     <p class="par H3">(Leyes 190 de 1995, 489 y 443 de 1998)</p>
                 </div>
                 <div class="inputHeader">
@@ -25,12 +26,14 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Aquí he agregado un "id" a la sección principal de "Datos Personales" -->
             <div class="indices ind1">
-                <button type="button" class="indice d1">1</button>
-                <button type="button" class="indice d2">DATOS PERSONALES</button>
+                <a href="#datos-personales" class="indice d1">1</a>
+                <a href="#datos-personales" class="indice d2">DATOS PERSONALES</a>
             </div>
             <div class="formulario-f1">
-                <section class="seccion-datos-personales">
+                <section id="datos-personales" class="seccion-datos-personales">
                     <div class="campo-tabla1">
                         <table class="tabla t1">
                             <thead>
@@ -60,8 +63,8 @@
                                         <div class="campo-sexo">
                                             <label for="SEXO">SEXO</label>
                                             <br>
-                                            <label for="genero_f">F</label><input type="radio" name="genero" class="radio-si" id="genero_f" value="Femenino">
-                                            <label for="genero_m">M</label><input type="radio" name="genero" class="radio-no" id="genero_m" value="Masculino">
+                                            <label for="genero_f">F</label><input type="radio" name="sexo" class="radio-si" id="genero_f" value="Femenino">
+                                            <label for="genero_m">M</label><input type="radio" name="sexo" class="radio-no" id="genero_m" value="Masculino">
                                         </div>
                                     </td>
                                     <td>
@@ -79,7 +82,18 @@
                                         <label for="tipo_libreta_primera">PRIMERA CLASE</label><input type="radio" name="clase_libreta_militar" id="tipo_libreta_primera" value="Primera Clase">
                                         <label for="tipo_libreta_segunda">SEGUNDA CLASE</label><input type="radio" name="clase_libreta_militar" id="tipo_libreta_segunda" value="Segunda Clase">
                                         <label for="numero_libreta">NÚMERO</label><input type="text" name="numero_libreta" id="numero_libreta">
-                                        <label for="distrito_militar">D.M</label><input type="text" name="distrito_militar" id="distrito_militar">
+                                        <label for="distrito_militar">D.M</label><input type="text" name="distrito_militar">
+                                    </td>
+                                    <td>
+                                        <label for="expedicion">LUGAR DE EXPEDICIÓN</label>
+                                        <br>
+                                        <label for="pais_expedicion">PAIS</label><input type="text" name="pais_expedicion" id="pais_expedicion">
+                                        <label for="depto_expedicion">DEPTO</label><input type="text" name="depto_expedicion" id="depto_expedicion">
+                                    </td>
+                                    <td>
+                                        <label for="municipio_expedicion">MUNICIPIO</label><input type="text" name="municipio_expedicion">
+                                        <br>
+                                        <label for="fecha_expedicion">FECHA</label><input type="date" name="fecha_expedicion" id="fecha_expedicion">
                                     </td>
                                 </tr>
                             </tbody>
@@ -103,10 +117,10 @@
                                         <label for="pais_nacimiento">PAIS</label><input type="text" name="pais_nacimiento" id="pais_nacimiento">
                                     </td>
                                     <td>
-                                        <label for="depto_nacimiento">DEPTO</label><input type="text" name="depto_nacimiento" id="depto_nacimiento">
+                                        <label for="departamento_nacimiento">DEPTO</label><input type="text" name="departamento_nacimiento" id="depto_nacimiento">
                                     </td>
                                     <td>
-                                        <label for="municipio_nacimiento">MUNICIPIO</label><input type="text" name="municipio_nacimiento" id="municipio_nacimiento">
+                                        <label for="municipio_nacimiento">MUNICIPIO</label><input type="text" name="municipio_nacimiento">
                                     </td>
                                 </tr>
                             </tbody>
@@ -133,9 +147,9 @@
                                         <label for="municipio_correspondencia">MUNICIPIO</label><input type="text" name="municipio_correspondencia" id="municipio_correspondencia">
                                     </td>
                                     <td>
-                                        <label for="telefono_correspondencia">TELÉFONO</label><input type="text" name="telefono_correspondencia" id="telefono_correspondencia">
+                                        <label for="telefono">TELÉFONO</label><input type="text" name="telefono" id="telefono_correspondencia">
                                         <br>
-                                        <label for="email_correspondencia">EMAIL</label><input type="email" name="email_correspondencia" id="email_correspondencia">
+                                        <label for="email">EMAIL</label><input type="email" name="email" id="email_correspondencia">
                                     </td>
                                 </tr>
                             </tbody>
@@ -143,12 +157,13 @@
                     </div>
                 </section>
             </div>
+            <!-- Aquí he agregado un "id" a la sección principal de "Formación Académica" -->
             <div class="indices ind1">
-                <button type="button" class="indice d1">2</button>
-                <button type="button" class="indice d2">FORMACIÓN ACADÉMICA</button>
+                <a href="#formacion-academica" class="indice d1">2</a>
+                <a href="#formacion-academica" class="indice d2">FORMACIÓN ACADÉMICA</a>
             </div>
             <div class="formulario-educacion">
-                <section class="seccion-educacion-basica">
+                <section id="formacion-academica" class="seccion-educacion-basica">
                     <div class="campo-tabla4">
                         <table class="tabla t4">
                             <thead>
@@ -157,47 +172,47 @@
                                         <p>EDUCACIÓN BÁSICA</p>
                                     </th>
                                     <th>
-                                        <label for="titulo_obtenido_basica">TÍTULO OBTENIDO:</label><input type="text" name="titulo_obtenido_basica" id="titulo_obtenido_basica">
+                                        <label for="titulo_obtenido">TÍTULO OBTENIDO:</label><input type="text" name="titulo_obtenido">
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <p>PRIMARIA</p>
+                                    </th>
+                                    <th>
+                                        <p>SECUNDARIA</p>
+                                    </th>
+                                    <th>
+                                        <p>MEDIA</p>
+                                    </th>
+                                    <th colspan="2">
+                                        <p>FECHA DE GRADO</p>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <p>PRIMARIA</p>
-                                    </td>
-                                    <td>
-                                        <p>SECUNDARIA</p>
-                                    </td>
-                                    <td>
-                                        <p>MEDIA</p>
-                                    </td>
-                                    <td colspan="2">
-                                        <p>FECHA DE GRADO</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="1" class="grados-primaria">
-                                        <label><input type="radio" name="grado_primaria" id="grado_1" value="1o"> 1o.</label>
-                                        <label><input type="radio" name="grado_primaria" id="grado_2" value="2o"> 2o.</label>
-                                        <label><input type="radio" name="grado_primaria" id="grado_3" value="3o"> 3o.</label>
-                                        <label><input type="radio" name="grado_primaria" id="grado_4" value="4o"> 4o.</label>
-                                        <label><input type="radio" name="grado_primaria" id="grado_5" value="5o"> 5o.</label>
+                                    <td class="grados-primaria">
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_1" value="1o."> 1o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_2" value="2o."> 2o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_3" value="3o."> 3o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_4" value="4o."> 4o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_5" value="5o."> 5o.</label>
                                     </td>
                                     <td class="grados-secundaria">
-                                        <label><input type="radio" name="grado_secundaria" id="grado_6" value="6o"> 6o.</label>
-                                        <label><input type="radio" name="grado_secundaria" id="grado_7" value="7o"> 7o.</label>
-                                        <label><input type="radio" name="grado_secundaria" id="grado_8" value="8o"> 8o.</label>
-                                        <label><input type="radio" name="grado_secundaria" id="grado_9" value="9o"> 9o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_6" value="6o."> 6o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_7" value="7o."> 7o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_8" value="8o."> 8o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_9" value="9o."> 9o.</label>
                                     </td>
                                     <td>
-                                        <label><input type="radio" name="grado_media" id="grado_10" value="10o"> 10o.</label>
-                                        <label><input type="radio" name="grado_media" id="grado_11" value="11o"> 11o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_10" value="10o."> 10o.</label>
+                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_11" value="11o."> 11o.</label>
                                     </td>
                                     <td colspan="2" class="fecha-grado">
                                         MES / AÑO
                                         <span class="date-box">
-                                            <input type="month" name="fecha_grado_basica" class="date-text-input">
+                                            <input type="date" name="fecha_grado_basica" class="date-text-input">
                                         </span>
                                     </td>
                                 </tr>
@@ -224,7 +239,7 @@
                     <div class="titulo-educacion-superior2">
                         <p>RELACIONE AL FRENTE EL NÚMERO DE LA TARJETA PROFESIONAL (SI ÉSTA HA SIDO PREVISTA EN UNA LEY).</p>
                     </div>
-                    <div>
+                    <div class="seccion-superior2">
                         <section class="campo-niveles-superior2">
                             <div class="niveles-tabla1">
                                 <table class="tabla-niveles">
@@ -240,8 +255,7 @@
                                             <th>APROBADOS</th>
                                             <th>SI</th>
                                             <th>NO</th>
-                                            <th>MES</th>
-                                            <th>AÑO</th>
+                                            <th colspan="2">FECHA</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -251,8 +265,7 @@
                                             <td><input type="radio" name="superior_1_graduado" value="si"></td>
                                             <td><input type="radio" name="superior_1_graduado" value="no"></td>
                                             <td><input type="text" name="superior_1_estudios"></td>
-                                            <td><input type="month" name="superior_1_mes_terminacion"></td>
-                                            <td><input type="number" name="superior_1_anio_terminacion" min="1900" max="2100"></td>
+                                            <td colspan="2"><input type="date" name="superior_1_mes_terminacion"></td>
                                             <td><input type="text" name="superior_1_tarjeta_profesional"></td>
                                         </tr>
                                         <tr>
@@ -261,8 +274,7 @@
                                             <td><input type="radio" name="superior_2_graduado" value="si"></td>
                                             <td><input type="radio" name="superior_2_graduado" value="no"></td>
                                             <td><input type="text" name="superior_2_estudios"></td>
-                                            <td><input type="month" name="superior_2_mes_terminacion"></td>
-                                            <td><input type="number" name="superior_2_anio_terminacion" min="1900" max="2100"></td>
+                                            <td colspan="2"><input type="date" name="superior_2_mes_terminacion"></td>
                                             <td><input type="text" name="superior_2_tarjeta_profesional"></td>
                                         </tr>
                                         <tr>
@@ -271,8 +283,7 @@
                                             <td><input type="radio" name="superior_3_graduado" class="si" value="si"></td>
                                             <td><input type="radio" name="superior_3_graduado" class="no" value="no"></td>
                                             <td><input type="text" name="superior_3_estudios"></td>
-                                            <td><input type="month" name="superior_3_mes_terminacion"></td>
-                                            <td><input type="number" name="superior_3_anio_terminacion" min="1900" max="2100"></td>
+                                            <td colspan="2"><input type="date" name="superior_3_mes_terminacion"></td>
                                             <td><input type="text" name="superior_3_tarjeta_profesional"></td>
                                         </tr>
                                         <tr>
@@ -281,8 +292,7 @@
                                             <td><input type="radio" name="superior_4_graduado" class="si" value="si"></td>
                                             <td><input type="radio" name="superior_4_graduado" class="no" value="no"></td>
                                             <td><input type="text" name="superior_4_estudios"></td>
-                                            <td><input type="month" name="superior_4_mes_terminacion"></td>
-                                            <td><input type="number" name="superior_4_anio_terminacion" min="1900" max="2100"></td>
+                                            <td colspan="2"><input type="date" name="superior_4_mes_terminacion"></td>
                                             <td><input type="text" name="superior_4_tarjeta_profesional"></td>
                                         </tr>
                                         <tr>
@@ -291,8 +301,7 @@
                                             <td><input type="radio" name="superior_5_graduado" class="si" value="si"></td>
                                             <td><input type="radio" name="superior_5_graduado" class="no" value="no"></td>
                                             <td><input type="text" name="superior_5_estudios"></td>
-                                            <td><input type="month" name="superior_5_mes_terminacion"></td>
-                                            <td><input type="number" name="superior_5_anio_terminacion" min="1900" max="2100"></td>
+                                            <td colspan="2"><input type="date" name="superior_5_mes_terminacion"></td>
                                             <td><input type="text" name="superior_5_tarjeta_profesional"></td>
                                         </tr>
                                     </tbody>

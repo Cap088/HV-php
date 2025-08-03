@@ -1,61 +1,70 @@
 <?php
-session_start(); // Inicia la sesión para acceder a variables de sesión (como el ID del usuario)
-include 'conexion.php'; // Incluye tu archivo de conexión a la base de datos
+// Iniciar la sesión para poder acceder a variables de sesión
+session_start();
 
-// Verifica si se envió el formulario
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Asegúrate de que el ID del usuario esté en la sesión
-    $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : null;
+// Desactivar temporalmente la visualización de errores para el usuario final
+ini_set('display_errors', 0);
 
-    if ($id_usuario === null) {
-        // Manejar el caso donde no hay un ID de usuario en la sesión
-        echo "Error: No se encontró el ID de usuario en la sesión. Por favor, complete la primera parte del formulario.";
-        // Opcional: Redirigir al usuario a la página de inicio
-        // header("Location: index.php");
-        // exit();
-    }
+// Configuración de la base de datos (usa tus credenciales)
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "hoja_de_vida_db";
 
-    // Recopila y escapa los datos del formulario
-    $entidad_receptora_p3 = $conn->real_escape_string($_POST['entidad_receptora_p3'] ?? '');
-    $consentimiento_incompatibilidad = $conn->real_escape_string($_POST['consentimiento_incompatibilidad'] ?? '');
-    $firma_servidor_publico = $conn->real_escape_string($_POST['firma_servidor_publico'] ?? '');
-    $observaciones_rh = $conn->real_escape_string($_POST['observaciones_rh'] ?? '');
-    $firma_jefe_personal = $conn->real_escape_string($_POST['firma_jefe_personal'] ?? '');
+// 1. Conexión a la base de datos
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    $sql = "INSERT INTO hoja_vida_finalizacion (
-                id_usuario, entidad_receptora_p3, consentimiento_incompatibilidad,
-                firma_servidor_publico, observaciones_rh, firma_jefe_personal
-            ) VALUES (?, ?, ?, ?, ?, ?)";
-
-    $stmt = $conn->prepare($sql);
-
-    $stmt->bind_param("isssss",
-        $id_usuario,
-        $entidad_receptora_p3,
-        $consentimiento_incompatibilidad,
-        $firma_servidor_publico,
-        $observaciones_rh,
-        $firma_jefe_personal
-    );
-
-    // Ejecutar la declaración
-    if ($stmt->execute()) {
-        // Opcional: Destruir la sesión si la hoja de vida se ha completado
-        // session_destroy();
-
-        // Redirigir a una página de confirmación o de éxito final
-        header("Location: confirmacion_final.php"); // Puedes crear este archivo
-        exit();
-    } else {
-        echo "Error al guardar los datos de la página 3: " . $stmt->error;
-    }
-
-    // Cerrar la declaración
-    $stmt->close();
-} else {
-    echo "Acceso no válido al script de procesamiento de la página 3.";
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Cerrar la conexión a la base de datos
+// 2. Obtener el ID de la persona del formulario (POST)
+// La página 3 envía el ID como un campo oculto, por lo tanto, se debe leer de $_POST.
+$id_persona = isset($_POST['id_persona']) ? intval($_POST['id_persona']) : 0;
+if ($id_persona === 0) {
+    die("Error: No se proporcionó un ID de persona válido. El formulario no se pudo procesar.");
+}
+
+// 3. Obtener y sanitizar los datos del formulario (POST)
+$consentimiento_incompatibilidad = $_POST['consentimiento_incompatibilidad'] ?? '';
+$firma_servidor_publico = $_POST['firma_servidor_publico'] ?? '';
+$observaciones_rh = $_POST['observaciones_rh'] ?? '';
+$firma_jefe_personal = $_POST['firma_jefe_personal'] ?? '';
+
+// 4. Preparar la consulta SQL para insertar los datos
+$sql = "INSERT INTO declaraciones_finales (
+    id_persona, consentimiento_incompatibilidad, firma_servidor_publico,
+    observaciones_rh, firma_jefe_personal
+) VALUES (?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
+
+if ($stmt === false) {
+    die("Error al preparar la consulta: " . $conn->error);
+}
+
+// 5. Vincular los parámetros y ejecutar la consulta
+// "issss" indica: i (integer) para id_persona, y s (string) para los demás campos
+$stmt->bind_param("issss",
+    $id_persona,
+    $consentimiento_incompatibilidad,
+    $firma_servidor_publico,
+    $observaciones_rh,
+    $firma_jefe_personal
+);
+
+if (!$stmt->execute()) {
+    die("Error al guardar los datos finales: " . $stmt->error);
+}
+
+// 6. Cerrar la conexión
+$stmt->close();
 $conn->close();
-?>
+
+// 7. Limpiar la sesión y redirigir a la página de confirmación
+// Destruimos la sesión porque el proceso ha terminado
+session_destroy();
+
+// Redirigimos al usuario a la página de confirmación final
+header("Location: confirmacion_final.php");
+exit();

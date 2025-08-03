@@ -1,5 +1,19 @@
+<?php
+// Iniciar sesión
+session_start();
+
+// Obtener el ID de la persona directamente de la SESIÓN
+$id_persona = isset($_SESSION['id_persona']) ? intval($_SESSION['id_persona']) : null;
+
+// Si no hay un ID, redirigir al inicio para evitar errores
+if ($id_persona === null) {
+    header("Location: index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
-<html lang="es"> <head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoja de vida en PHP Pagina 3</title>
@@ -8,12 +22,15 @@
 <body>
     <div class="contenedorGeneral-pagina3">
         <form action="process_hoja_de_vida_pagina3.php" method="post" class="formulario-pagina3">
+            <!-- ¡IMPORTANTE! Campo oculto para pasar el ID de la persona al siguiente script -->
+            <input type="hidden" name="id_persona" value="<?php echo htmlspecialchars($id_persona); ?>">
+
             <div class="header">
                 <img src="./images/Captura.PNG" class="imgEscudo" name="Escudo-Colombia" alt="Escudo de Colombia">
                 <div class="tituloHeader">
-                    <P class="par H1">FORMATO UNICO</P>
+                    <p class="par H1">FORMATO UNICO</p>
                     <h1>HOJA DE VIDA</h1>
-                    <P class="par H2">Persona Natural</P>
+                    <p class="par H2">Persona Natural</p>
                     <p class="par H3">(Leyes 190 de 1995, 489 y 443 de 1998)</p>
                 </div>
             </div>
@@ -23,7 +40,7 @@
             </div>
             <section class="seccion1-pagina3">
                 <div>
-                    <p>MANIFIESTO BAJO LA GRAVEDAD DEL JURAMENTO:  ME ENCUENTRO DENTRO DE LAS
+                    <p>MANIFIESTO BAJO LA GRAVEDAD DEL JURAMENTO: ME ENCUENTRO DENTRO DE LAS
                         CAUSALES DE INHABILIDAD E INCOMPATIBILIDAD DEL ORDEN CONSTITUCIONAL O LEGAL,
                         PARA EJERCER CARGOS EMPLEOS PÚBLICOS O PARA CELEBRAR
                         CONTRATOS DE PRESTACIÓN DE SERVICIOS CON LA ADMINISTRACIÓN PÚBLICA.</p>
