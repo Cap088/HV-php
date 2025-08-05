@@ -10,8 +10,7 @@
     <div class="contenedorGeneral-pagina1">
         <form action="process_hoja_de_vida_pagina1.php" method="POST" enctype="multipart/form-data">
             <div class="header">
-                <!-- He cambiado la imagen por una de placeholder para que el ejemplo funcione -->
-                <img src="https://placehold.co/100x100/A0B2C4/FFFFFF?text=Escudo" class="imgEscudo" name="escudo_colombia" alt="Escudo de Colombia">
+                <img src="/images/Captura.PNG" class="imgEscudo" name="escudo_colombia" alt="Escudo de Colombia">
                 <div class="tituloHeader">
                     <p class="par H1">FORMATO ÚNICO</p>
                     <h1>HOJA DE VIDA</h1>
@@ -26,11 +25,9 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Aquí he agregado un "id" a la sección principal de "Datos Personales" -->
             <div class="indices ind1">
-                <a href="#datos-personales" class="indice d1">1</a>
-                <a href="#datos-personales" class="indice d2">DATOS PERSONALES</a>
+                <button type="button" class="indice d1">1</button>
+                <button type="button" class="indice d2">DATOS PERSONALES</button>
             </div>
             <div class="formulario-f1">
                 <section id="datos-personales" class="seccion-datos-personales">
@@ -83,17 +80,6 @@
                                         <label for="tipo_libreta_segunda">SEGUNDA CLASE</label><input type="radio" name="clase_libreta_militar" id="tipo_libreta_segunda" value="Segunda Clase">
                                         <label for="numero_libreta">NÚMERO</label><input type="text" name="numero_libreta" id="numero_libreta">
                                         <label for="distrito_militar">D.M</label><input type="text" name="distrito_militar">
-                                    </td>
-                                    <td>
-                                        <label for="expedicion">LUGAR DE EXPEDICIÓN</label>
-                                        <br>
-                                        <label for="pais_expedicion">PAIS</label><input type="text" name="pais_expedicion" id="pais_expedicion">
-                                        <label for="depto_expedicion">DEPTO</label><input type="text" name="depto_expedicion" id="depto_expedicion">
-                                    </td>
-                                    <td>
-                                        <label for="municipio_expedicion">MUNICIPIO</label><input type="text" name="municipio_expedicion">
-                                        <br>
-                                        <label for="fecha_expedicion">FECHA</label><input type="date" name="fecha_expedicion" id="fecha_expedicion">
                                     </td>
                                 </tr>
                             </tbody>
@@ -157,10 +143,9 @@
                     </div>
                 </section>
             </div>
-            <!-- Aquí he agregado un "id" a la sección principal de "Formación Académica" -->
             <div class="indices ind1">
-                <a href="#formacion-academica" class="indice d1">2</a>
-                <a href="#formacion-academica" class="indice d2">FORMACIÓN ACADÉMICA</a>
+                <button type="button" class="indice d1">2</button>
+                <button type="button" class="indice d2">FORMACION ACADEMICA</button>
             </div>
             <div class="formulario-educacion">
                 <section id="formacion-academica" class="seccion-educacion-basica">
@@ -193,24 +178,23 @@
                             <tbody>
                                 <tr>
                                     <td class="grados-primaria">
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_1" value="1o."> 1o.</label>
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_2" value="2o."> 2o.</label>
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_3" value="3o."> 3o.</label>
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_4" value="4o."> 4o.</label>
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_5" value="5o."> 5o.</label>
+                                        <label>1°.<input type="radio" name="grado_basica_finalizado" id="grado_1" value="1o."></label>
+                                        <label>2°.<input type="radio" name="grado_basica_finalizado" id="grado_2" value="2o."></label>
+                                        <label>3°.<input type="radio" name="grado_basica_finalizado" id="grado_3" value="3o."></label>
+                                        <label>4°.<input type="radio" name="grado_basica_finalizado" id="grado_4" value="4o."></label>
+                                        <label>5°.<input type="radio" name="grado_basica_finalizado" id="grado_5" value="5o."></label>
                                     </td>
                                     <td class="grados-secundaria">
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_6" value="6o."> 6o.</label>
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_7" value="7o."> 7o.</label>
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_8" value="8o."> 8o.</label>
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_9" value="9o."> 9o.</label>
+                                        <label>6°.<input type="radio" name="grado_basica_finalizado" id="grado_6" value="6o."></label>
+                                        <label>7°.<input type="radio" name="grado_basica_finalizado" id="grado_7" value="7o."></label>
+                                        <label>8°.<input type="radio" name="grado_basica_finalizado" id="grado_8" value="8o."></label>
+                                        <label>9°.<input type="radio" name="grado_basica_finalizado" id="grado_9" value="9o."></label>
                                     </td>
                                     <td>
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_10" value="10o."> 10o.</label>
-                                        <label><input type="radio" name="grado_basica_finalizado" id="grado_11" value="11o."> 11o.</label>
+                                        <label>10°.<input type="radio" name="grado_basica_finalizado" id="grado_10" value="10o."></label>
+                                        <label>11°.<input type="radio" name="grado_basica_finalizado" id="grado_11" value="11o."></label>
                                     </td>
                                     <td colspan="2" class="fecha-grado">
-                                        MES / AÑO
                                         <span class="date-box">
                                             <input type="date" name="fecha_grado_basica" class="date-text-input">
                                         </span>
@@ -242,7 +226,7 @@
                     <div class="seccion-superior2">
                         <section class="campo-niveles-superior2">
                             <div class="niveles-tabla1">
-                                <table class="tabla-niveles">
+                                <table class="tabla-niveles t5">
                                     <thead>
                                         <tr class="titulos-tabla">
                                             <th rowspan="2">MODALIDAD<br>ACADEMICA</th> <th colspan="1">No.SEMESTRES</th>

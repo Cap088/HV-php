@@ -1,11 +1,11 @@
 <?php
-// Iniciar sesión
+/* Iniciar sesión */
 session_start();
 
-// Obtener el ID de la persona directamente de la SESIÓN
+/* Obtener el ID de la persona directamente de la SESIÓN */
 $id_persona = isset($_SESSION['id_persona']) ? intval($_SESSION['id_persona']) : null;
 
-// Si no hay un ID, redirigir al inicio para evitar errores
+/* Si no hay un ID, redirigir al inicio para evitar errores */
 if ($id_persona === null) {
     header("Location: index.php");
     exit();

@@ -1,35 +1,35 @@
 <?php
-// ¡IMPORTANTE! Iniciar la sesión para poder acceder a $_SESSION
+/* ¡IMPORTANTE! Iniciar la sesión para poder acceder a $_SESSION */
 session_start();
 
-// Desactivar temporalmente la visualización de errores para el usuario final
+/*  Desactivar temporalmente la visualización de errores para el usuario final */
 ini_set('display_errors', 0);
 
-// Configuración de la base de datos
+/*  Configuración de la base de datos */
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "hoja_de_vida_db";
 
-// 1. Conexión a la base de datos
+/* 1. Conexión a la base de datos */
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verificar la conexión
+/* Verificar la conexión */
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// 2. Obtener el ID de la persona desde la SESIÓN
-// Ya no se busca en $_POST, sino en $_SESSION
+/* 2. Obtener el ID de la persona desde la SESIÓN
+ Ya no se busca en $_POST, sino en $_SESSION */
 $id_persona = isset($_SESSION['id_persona']) ? intval($_SESSION['id_persona']) : 0;
 if ($id_persona === 0) {
-    // Si la sesión no tiene el ID, el usuario no ha pasado por la página 1.
-    // Redirigimos al inicio.
+    /*  Si la sesión no tiene el ID, el usuario no ha pasado por la página 1.
+     Redirigimos al inicio. */
     header("Location: index.php");
     exit();
 }
 
-// 3. Preparar la consulta SQL para insertar los datos
+/* 3. Preparar la consulta SQL para insertar los datos */
 $sql = "INSERT INTO experiencia_laboral (id_persona, tipo, empresa, tipo_empresa, pais, departamento, municipio, correo_entidad, telefonos, fecha_ingreso, fecha_retiro, cargo, dependencia, direccion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 
@@ -37,7 +37,7 @@ if ($stmt === false) {
     die("Error al preparar la consulta: " . $conn->error);
 }
 
-// 4. Procesar los tres bloques de experiencia laboral
+/* 4. Procesar los tres bloques de experiencia laboral */
 for ($i = 0; $i <= 2; $i++) {
     $prefix = ($i === 0) ? "actual_" : "anterior_" . $i . "_";
     $tipo = ($i === 0) ? "actual" : "anterior";
@@ -64,11 +64,11 @@ for ($i = 0; $i <= 2; $i++) {
     }
 }
 
-// 5. Cerrar la conexión
+/* 5. Cerrar la conexión */
 $stmt->close();
 $conn->close();
 
-// 6. Redirigir a la siguiente página
+/* 6. Redirigir a la siguiente página */
 header("Location: pagina3.php?id_persona=" . $id_persona);
 exit();
 

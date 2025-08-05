@@ -1,5 +1,5 @@
 <?php
-// 1. Incluir conexión y configuraciones iniciales
+/* 1. Incluir conexión y configuraciones iniciales */
 include 'conexion.php';
 session_start();
 
@@ -8,19 +8,19 @@ print_r($_POST);
 print_r($_FILES);
 echo "</pre>";
 
-// 2. Configuración de directorio para fotos
+/* 2. Configuración de directorio para fotos */
 $target_dir = "uploads/";
 if (!is_dir($target_dir)) {
     mkdir($target_dir, 0750, true);
 }
 
-// 3. Validar método de solicitud
+/* 3. Validar método de solicitud */
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header("Location: index.php");
     exit();
 }
 
-// 4. Sanitizar y validar datos principales
+/* 4. Sanitizar y validar datos principales */
 $campos_requeridos = [
     'primer_apellido', 'nombres', 'tipo_documento',
     'numero_identificacion', 'sexo', 'nacionalidad'
@@ -32,7 +32,7 @@ foreach ($campos_requeridos as $campo) {
     }
 }
 
-// 5. Procesar datos personales
+/* 5. Procesar datos personales */
 $persona = [
     'entidad_receptora' => isset($_POST['entidad_receptora']) ? $conn->real_escape_string($_POST['entidad_receptora']) : null,
     'primer_apellido' => $conn->real_escape_string($_POST['primer_apellido']),
@@ -64,12 +64,12 @@ if (isset($_FILES['cargar_foto']) && $_FILES['cargar_foto']['error'] == UPLOAD_E
     $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
     $max_size = 2 * 1024 * 1024; // 2MB máximo
 
-    // Verificar tipo y tamaño del archivo
+    /*  Verificar tipo y tamaño del archivo */
     if (in_array($extension, $allowed_types) && $_FILES['cargar_foto']['size'] <= $max_size) {
         $nombre_archivo_unico = uniqid('foto_') . '.' . $extension;
         $target_file = $target_dir . $nombre_archivo_unico;
 
-        // Verificar si es una imagen real
+        /* Verificar si es una imagen real */
         $check = getimagesize($_FILES['cargar_foto']['tmp_name']);
         if ($check !== false) {
             if (move_uploaded_file($_FILES['cargar_foto']['tmp_name'], $target_file)) {
@@ -86,10 +86,10 @@ if (isset($_FILES['cargar_foto']) && $_FILES['cargar_foto']['error'] == UPLOAD_E
 }
 
 
-// 7. Iniciar transacción
+/* 7. Iniciar transacción */
 $conn->begin_transaction();
 
-//datos personales
+/* datos personales */
 try {
     $sql_persona = "INSERT INTO personas (
         entidad_receptora, primer_apellido, segundo_apellido, nombres, tipo_documento, numero_identificacion,
@@ -114,17 +114,17 @@ try {
     if (!$stmt_persona->execute()) {
         throw new Exception("Error al guardar datos personales: " . $stmt_persona->error);
     }
-    //bloque educacion basica
+    /* bloque educacion basica */
     $id_persona = $conn->insert_id;
     $_SESSION['id_persona'] = $id_persona;
     $stmt_persona->close();
 
-    // 9. Procesar educación básica
+    /* 9. Procesar educación básica */
 if (isset($_POST['grado_basica_finalizado'])) {
-    // Obtener y sanitizar datos
+    /* Obtener y sanitizar datos */
     $grado = $_POST['grado_basica_finalizado'];
 
-    // Usar el nombre correcto del campo (titulo_obtenido en lugar de titulo_obtenido_basica)
+    /* Usar el nombre correcto del campo (titulo_obtenido en lugar de titulo_obtenido_basica) */
     $titulo = isset($_POST['titulo_obtenido'])
             ? trim($conn->real_escape_string($_POST['titulo_obtenido']))
             : null;
@@ -133,7 +133,7 @@ if (isset($_POST['grado_basica_finalizado'])) {
             ? $_POST['fecha_grado_basica']
             : null;
 
-    // Insertar en base de datos
+    /* Insertar en base de datos */
     $sql_basica = "INSERT INTO educacion_basica
                 (id_persona, grado, titulo_obtenido, fecha_grado)
                 VALUES (?, ?, ?, ?)";
@@ -153,28 +153,28 @@ if (isset($_POST['grado_basica_finalizado'])) {
     }
 }
 
-    // 10. Procesar educación superior (hasta 5 registros)
+    /* 10. Procesar educación superior (hasta 5 registros) */
     for ($i = 1; $i <= 5; $i++) {
     if (!empty($_POST["superior_{$i}_modalidad"])) {
         try {
-            // Sanitización y validación de datos
+            /* Sanitización y validación de datos */
             $modalidad = $conn->real_escape_string($_POST["superior_{$i}_modalidad"]);
             $semestres = isset($_POST["superior_{$i}_semestres"]) ? (int)$_POST["superior_{$i}_semestres"] : null;
             $graduado = (isset($_POST["superior_{$i}_graduado"]) && $_POST["superior_{$i}_graduado"] == 'si') ? 1 : 0;
             $estudios = $conn->real_escape_string($_POST["superior_{$i}_estudios"]);
             $tarjeta = isset($_POST["superior_{$i}_tarjeta_profesional"]) ? $conn->real_escape_string($_POST["superior_{$i}_tarjeta_profesional"]) : null;
 
-            // Validación y formato de fecha
+            /* Validación y formato de fecha */
             $fecha_terminacion = null;
             if (!empty($_POST["superior_{$i}_mes_terminacion"])) {
                 $fecha_input = $_POST["superior_{$i}_mes_terminacion"];
                 if (preg_match('/^\d{4}-\d{2}(-\d{2})?$/', $fecha_input)) {
-                    // Acepta tanto YYYY-MM como YYYY-MM-DD
+                    /* // Acepta tanto YYYY-MM como YYYY-MM-DD */
                     $fecha_terminacion = date('Y-m-d', strtotime($fecha_input));
                 }
             }
 
-            // Consulta SQL
+            /* Consulta SQL */
             $sql_superior = "INSERT INTO educacion_superior (
                 id_persona, modalidad, semestres_aprobados, graduado,
                 nombre_estudios, fecha_terminacion, tarjeta_profesional
@@ -202,14 +202,14 @@ if (isset($_POST['grado_basica_finalizado'])) {
             $stmt_superior->close();
 
         } catch (Exception $e) {
-            // Registra el error pero permite continuar con los siguientes registros
+            /*  Registra el error pero permite continuar con los siguientes registros */
             error_log("Error procesando educación superior {$i}: " . $e->getMessage());
             continue;
         }
     }
 }
 
-    // 11. Procesar idiomas (hasta 2 registros)
+    /* 11. Procesar idiomas (hasta 2 registros) */
     for ($i = 1; $i <= 2; $i++) {
         if (!empty($_POST["idioma_{$i}_nombre"])) {
             $idioma = $conn->real_escape_string($_POST["idioma_{$i}_nombre"]);
@@ -231,18 +231,18 @@ if (isset($_POST['grado_basica_finalizado'])) {
         }
     }
 
-    // 12. Confirmar transacción
+    /*  12. Confirmar transacción */
     $conn->commit();
 
-    // 13. Redirigir a la siguiente página
+    /* 13. Redirigir a la siguiente página */
     header("Location: pagina2.php");
     exit();
 
 } catch (Exception $e) {
-    // 14. En caso de error, revertir transacción
+    /*  14. En caso de error, revertir transacción */
     $conn->rollback();
 
-    // Eliminar foto si se subió pero falló la transacción
+    /* Eliminar foto si se subió pero falló la transacción */
     if (!empty($persona['ruta_foto']) && file_exists($persona['ruta_foto'])) {
         unlink($persona['ruta_foto']);
     }

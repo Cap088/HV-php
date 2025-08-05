@@ -204,8 +204,8 @@ box-sizing: border-box;
 
 .t1 td{
     width: 100%;
-    min-height: 85px;
-    max-height: 120px;
+    min-height: 75px;
+    max-height: 140px;
     padding: 10px;
     border: 1px solid;
 }
@@ -248,7 +248,7 @@ box-sizing: border-box;
     text-align: center;
     border-bottom: 1px solid;
     border-radius: 5px;
-
+    text-transform: uppercase;
 }
 
 .t2 th, .t3 th{
@@ -294,7 +294,7 @@ box-sizing: border-box;
     min-width: auto;
     height: 20%;
     margin: 0;
-    border: 1px solid red;
+    border: 1px solid;
 }
 
 /* estilos del formulario 2 */
@@ -349,7 +349,7 @@ box-sizing: border-box;
 
 .t4 th{
     border: 1px solid;
-    width: 50%;
+    width: 20%;
     height: auto;
     border-radius: 10px;
     background-color: rgb(215, 250, 238);
@@ -368,8 +368,14 @@ box-sizing: border-box;
     background-color: rgb(215, 250, 238);
 }
 
-.t4 tbody input{
-    border-radius: 5px;
+.t4 tbody input[type=date]{
+    width: 97%;
+    height: auto;
+    padding: 2px;
+    text-align: center;
+    border-radius: 10px;
+    text-transform: uppercase;
+    border: 1px solid rgb(131, 126, 126);
 }
 
 /* estilos del campo educacion superior */
@@ -415,17 +421,33 @@ box-sizing: border-box;
 }
 
 .campo-niveles-superior2{
-    width: 100%;
+    max-width: 100%;
+    min-width: 10%;
     height: auto;
     display: flex;
     margin:0;
     padding: 0px;
+    border: 0.2px solid;
 }
 
-.campo-niveles-superior2 input{
+.t5 input[type=date]{
     width: 95%;
+    height: auto;
+    border: none;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.t5 input[type=text]{
+    width: 94%;
     margin: 1px;
     height: 25px;
+    border: none;
+}
+
+.t5 input[type=number]{
+    width: 95%;
+    height: auto;
     border: none;
 }
 
